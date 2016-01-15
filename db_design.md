@@ -1,4 +1,9 @@
-# 数据库设计
+---
+title: 数据库设计(针对mysql)
+---
+随着cpu的计算能力越来越强，在互联网项目中，数据库的IO处理能力往往是瓶颈所在，好的数据库设计就显得格外重要。数据库设计有很多规范，但在实际项目中，我们需要根据所需，合适的‘牺牲’一些规范。
+
+## 数据库设计原则
 
 * 减少数据冗余
 
@@ -10,7 +15,7 @@
 
 ## 需求分析
 
-### 需求分析要点：
+### 需求分析要点
 
 1. 存储数据是什么
 2. 数据存储特点（时效性数据【定期清理机制】；没有时效性的数据）
@@ -39,7 +44,7 @@
 4. 反范式化设计（比如为了读效率 增加数据库的冗余）
 
 ### mysql存储引擎选择
- innodb
+    innodb
 
 ### 表及字段的命名规则
 
@@ -63,11 +68,15 @@
 4. 反范式化：互联网项目读操作远大于写操作,用空间换时间
 
 ## 维护优化
+
 ### 维护数据字典
 
  导出数据字典sql
 
-    select a.table_name, b.table_comment, a.column_name, a.column_type, a.column_comment from INFORMATION_SCHEMA.COLUMNS a join INFORMATION_SCHEMA.TABLES b on a.table_schema = b.table_schema and a.table_name = b.table_name where a.table_name = 'customer';
+    select a.table_name, b.table_comment, a.column_name, a.column_type, a.column_comment 
+    from INFORMATION_SCHEMA.COLUMNS a 
+    join INFORMATION_SCHEMA.TABLES b on a.table_schema = b.table_schema and a.table_name = b.table_name 
+    where a.table_name = 'customer';
 
 ### 维护索引
 
@@ -82,5 +91,4 @@
 ### 拆表
 
 * 垂直拆分：为了控制表的宽度大小
-
 * 水平拆分：分表，散表
